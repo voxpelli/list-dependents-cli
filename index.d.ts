@@ -1,3 +1,10 @@
-export type * from './lib/advanced-types.d.ts';
+export type * from './lib/interface-types.js';
 
-export { default } from './lib/npm.js';
+export {
+  fetchEcosystemDependentPackages,
+} from './lib/ecosystems.js';
+
+export {
+  fetchNpmDependentPackages,
+  fetchNpmDependents,
+} from './lib/npm.js';

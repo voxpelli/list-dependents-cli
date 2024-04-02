@@ -29,6 +29,7 @@
   "scripts": {
     "build:0": "run-s clean",
     "build:1-declaration": "tsc -p declaration.tsconfig.json",
+    "build:2-add-ignores": "ts-ignore-import '**/*.d.ts'",
     "build": "run-s build:*",
     "check:installed-check": "installed-check",
     "check:knip": "knip",
@@ -71,6 +72,7 @@
     "mocha": "^10.4.0",
     "npm-run-all2": "^6.1.2",
     "read-pkg": "^9.0.1",
+    "ts-ignore-import": "^3.0.0",
     "type-coverage": "^2.27.2",
     "typescript": "~5.4.3"
   },
