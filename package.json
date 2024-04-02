@@ -1,5 +1,5 @@
 {
-  "name": "@voxpelli/node-module-template",
+  "name": "list-dependents",
   "version": "0.0.0",
   "description": "A GitHub template repo for node modules",
   "homepage": "http://github.com/voxpelli/node-module-template",
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.14",
+    "@types/debug": "^4.1.12",
     "@types/mocha": "^10.0.6",
     "@types/node": "^18.19.26",
     "@voxpelli/eslint-config": "^19.0.0",
@@ -68,5 +69,11 @@
     "npm-run-all2": "^6.1.2",
     "type-coverage": "^2.27.2",
     "typescript": "~5.4.3"
+  },
+  "dependencies": {
+    "buffered-async-iterable": "^0.3.0",
+    "debug": "^4.3.4",
+    "hast-util-from-html": "^2.0.1",
+    "hast-util-select": "^6.0.2"
   }
 }
