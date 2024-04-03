@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import { fetchEcosystemDependentPackages } from './lib/ecosystems.js';
-import { fetchNpmDependentPackages } from './lib/npm.js';
+import { fetchEcosystemDependents } from './lib/ecosystems.js';
+import { fetchNpmDependents } from './lib/npm.js';
 
 const name = process.argv[2];
 const ecosystem = process.argv[3] === 'ecosystem';
@@ -15,9 +15,9 @@ if (!name) {
 }
 
 const result = ecosystem
-  ? fetchEcosystemDependentPackages(name, { minDownloadsLastMonth: minDownloads, maxPages })
-  : fetchNpmDependentPackages(name, { minDownloadsLastWee: minDownloads, maxPages });
+  ? fetchEcosystemDependents(name, { minDownloadsLastMonth: minDownloads, maxPages })
+  : fetchNpmDependents(name, { minDownloadsLastWeek: minDownloads, maxPages });
 
-for await (const { dependentCount, downloads, name, pkg, stargazers } of result) {
-  console.log(downloads, name, dependentCount, stargazers, pkg.description);
+for await (const { downloads, name, pkg, ...rest } of result) {
+  console.log(downloads, name, rest, pkg.description);
 }

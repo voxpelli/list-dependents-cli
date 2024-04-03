@@ -1,8 +1,8 @@
 export {
-  fetchEcosystemDependentPackages,
+  fetchEcosystemDependents,
 } from './lib/ecosystems.js';
 
 export {
-  fetchNpmDependentPackages,
+  fetchNpmDependentList,
   fetchNpmDependents,
 } from './lib/npm.js';
