@@ -19,9 +19,9 @@ export interface PackageItem {
 export interface DependentsItem extends PackageItem, DependentsMeta {}
 export interface EcosystemDependentsItem extends DependentsItem, EcosystemDependentsMeta {}
 
-interface DependentsOptions {
+export interface DependentsOptions {
   maxPages?: number | undefined;
-  logger?: BunyanLite | false | undefined;
+  logger?: BunyanLite | undefined;
 }
 
 export interface NpmDependentsOptions extends DependentsOptions {

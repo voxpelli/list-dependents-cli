@@ -1,8 +1,8 @@
-#!/usr/bin/env node
+/* eslint-disable unicorn/no-process-exit */
 /* eslint-disable no-console */
 
-import { fetchEcosystemDependents } from './lib/ecosystems.js';
-import { fetchNpmDependents } from './lib/npm.js';
+import { createLogger } from 'bunyan-adaptor';
+import { fetchEcosystemDependents, fetchNpmDependents } from '../index.js';
 
 const name = process.argv[2];
 const ecosystem = process.argv[3] === 'ecosystem';
@@ -14,9 +14,14 @@ if (!name) {
   process.exit(1);
 }
 
+const options = /** @satisfies {import('../index.js').DependentsOptions} */ ({
+  logger: createLogger(),
+  maxPages,
+});
+
 const result = ecosystem
-  ? fetchEcosystemDependents(name, { minDownloadsLastMonth: minDownloads, maxPages })
-  : fetchNpmDependents(name, { minDownloadsLastWeek: minDownloads, maxPages });
+  ? fetchEcosystemDependents(name, { ...options, minDownloadsLastMonth: minDownloads })
+  : fetchNpmDependents(name, { ...options, minDownloadsLastWeek: minDownloads });
 
 for await (const { downloads, name, pkg, ...rest } of result) {
   console.log(downloads, name, rest, pkg.description);

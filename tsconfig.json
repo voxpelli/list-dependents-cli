@@ -1,10 +1,10 @@
 {
   "extends": "@voxpelli/tsconfig/node18.json",
   "files": [
-    "cli.js",
     "index.js"
   ],
   "include": [
+    "examples/**/*",
     "lib/**/*",
     "test/**/*",
   ]

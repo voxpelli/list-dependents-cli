@@ -3,6 +3,7 @@
   "extends": "./tsconfig",
   "files": [],
   "exclude": [
+    "examples/**/*.js",
     "test/**/*.js"
   ],
   "compilerOptions": {

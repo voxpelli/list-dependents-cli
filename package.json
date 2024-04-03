@@ -19,9 +19,9 @@
   "types": "index.d.ts",
   "files": [
     "cli.js",
-    "/index.js",
-    "/index.d.ts",
-    "/index.d.ts.map",
+    "index.js",
+    "index.d.ts",
+    "index.d.ts.map",
     "lib/*.js",
     "lib/*.d.ts",
     "lib/*.d.ts.map"
@@ -29,7 +29,7 @@
   "scripts": {
     "build:0": "run-s clean",
     "build:1-declaration": "tsc -p declaration.tsconfig.json",
-    "build:2-add-ignores": "ts-ignore-import '**/*.d.ts'",
+    "build:2-add-ignores": "ts-ignore-import '**/*.d.ts' --allow='bunyan-adaptor'",
     "build": "run-s build:*",
     "check:installed-check": "installed-check",
     "check:knip": "knip",
@@ -42,19 +42,13 @@
     "clean": "run-p clean:*",
     "prepare": "husky",
     "prepack": "run-s build",
-    "test:mocha": "c8 --reporter=lcov --reporter text mocha 'test/**/*.spec.js'",
-    "test-ci": "run-s test:*",
-    "test": "run-s check test:*"
+    "test": "run-s check"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.14",
     "@types/hast": "^3.0.4",
-    "@types/mocha": "^10.0.6",
     "@types/node": "^18.19.26",
     "@voxpelli/eslint-config": "^19.0.0",
     "@voxpelli/tsconfig": "^11.0.0",
-    "c8": "^9.1.0",
-    "chai": "^4.4.1",
     "eslint": "^8.57.0",
     "eslint-plugin-es-x": "^7.6.0",
     "eslint-plugin-import": "^2.29.1",
@@ -68,7 +62,6 @@
     "husky": "^9.0.11",
     "installed-check": "^9.0.0",
     "knip": "^5.4.0",
-    "mocha": "^10.4.0",
     "npm-run-all2": "^6.1.2",
     "read-pkg": "^9.0.1",
     "ts-ignore-import": "^3.0.0",
