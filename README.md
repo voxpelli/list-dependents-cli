@@ -21,8 +21,11 @@ const result = fetchEcosystemDependents(name);
 for await (const { downloads, name, pkg } of fetchEcosystemDependents('npm-run-all2')) {
   console.log(downloads, name, pkg.description);
 }
-
 ```
+
+### Advanced
+
+See [`examples/cli.js`](./examples/cli.js)
 
 ## API
 
