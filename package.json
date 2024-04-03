@@ -1,11 +1,11 @@
 {
   "name": "list-dependents",
   "version": "0.0.0",
-  "description": "A GitHub template repo for node modules",
-  "homepage": "http://github.com/voxpelli/node-module-template",
+  "description": "Lists all dependents of a project, using npm or ecosyste.ms",
+  "homepage": "http://github.com/voxpelli/list-dependents",
   "repository": {
     "type": "git",
-    "url": "git://github.com/voxpelli/node-module-template.git"
+    "url": "git://github.com/voxpelli/list-dependents.git"
   },
   "keywords": [],
   "author": "Pelle Wessman <pelle@kodfabrik.se> (http://kodfabrik.se/)",
