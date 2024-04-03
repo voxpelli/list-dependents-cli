@@ -1,6 +1,6 @@
 # list-dependents
 
-Lists all dependents of a project, using npm or ecosyste.ms
+Lists all dependents of a project, using npm and [`ecosyste.ms`](https://ecosyste.ms/)
 
 [![npm version](https://img.shields.io/npm/v/list-dependents.svg?style=flat)](https://www.npmjs.com/package/list-dependents)
 [![npm downloads](https://img.shields.io/npm/dm/list-dependents.svg?style=flat)](https://www.npmjs.com/package/list-dependents)
@@ -70,7 +70,7 @@ interface EcosystemDependentsItem extends DependentsItem {
 
 ### fetchNpmDependents()
 
-Uses the npm website to resolve packages of dependents
+Uses the npm [website](https://www.npmjs.com/browse/depended/c8), [registry API](https://github.com/npm/registry/blob/master/docs/REGISTRY-API.md#getpackageversion) and [download count API](https://github.com/npm/registry/blob/master/docs/download-counts.md) to resolve packages of dependents
 
 #### Syntax
 
