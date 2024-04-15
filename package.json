@@ -62,6 +62,7 @@
     "husky": "^9.0.11",
     "installed-check": "^9.0.0",
     "knip": "^5.4.0",
+    "ndjson": "^2.0.0",
     "npm-run-all2": "^6.1.2",
     "read-pkg": "^9.0.1",
     "ts-ignore-import": "^3.0.0",
@@ -72,6 +73,7 @@
     "buffered-async-iterable": "^0.3.0",
     "bunyan-adaptor": "^6.0.1",
     "hast-util-from-html": "^2.0.1",
-    "hast-util-select": "^6.0.2"
+    "hast-util-select": "^6.0.2",
+    "peowly": "^1.2.0"
   }
 }

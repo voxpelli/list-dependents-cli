@@ -24,5 +24,5 @@ const result = ecosystem
   : fetchNpmDependents(name, { ...options, minDownloadsLastWeek: minDownloads });
 
 for await (const { downloads, name, pkg, ...rest } of result) {
-  console.log(downloads, name, rest, pkg.description);
+  console.log(downloads, name, rest, pkg?.description);
 }

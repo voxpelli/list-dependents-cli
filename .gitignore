@@ -16,3 +16,4 @@
 !/index.d.ts
 
 # Library specific ones
+/*.ndjson

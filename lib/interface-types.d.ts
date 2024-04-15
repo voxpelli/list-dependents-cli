@@ -13,15 +13,15 @@ export interface EcosystemDependentsMeta extends DependentsMeta {
   latestRelease: string | undefined,
 }
 
-export interface PackageItem {
-  pkg: NormalizedPackageJson;
+export interface DependentsItem extends DependentsMeta {
+  pkg?: NormalizedPackageJson | undefined;
 }
-export interface DependentsItem extends PackageItem, DependentsMeta {}
 export interface EcosystemDependentsItem extends DependentsItem, EcosystemDependentsMeta {}
 
 export interface DependentsOptions {
   maxPages?: number | undefined;
   logger?: BunyanLite | undefined;
+  skipPkg?: boolean | undefined;
 }
 
 export interface NpmDependentsOptions extends DependentsOptions {
