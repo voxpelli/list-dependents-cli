@@ -2,13 +2,18 @@
 
 /* eslint-disable no-console */
 
+import { createReadStream } from 'node:fs';
 import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { pipeline } from 'node:stream/promises';
 
 import createLogger from 'bunyan-adaptor';
 import { peowly } from 'peowly';
 
 import { fetchEcosystemDependents } from './index.js';
-import { isErrorWithCode, pick } from './lib/utils.js';
+import { isErrorWithCode, ndjsonParse, pick, sortByKey } from './lib/utils.js';
+
+/** @typedef {Omit<Partial<import('./index.js').EcosystemDependentsItem>, 'pkg' | 'name'> & { name: string, pkg?: Partial<import('./lib/npm-helpers.js').NormalizedPackageJson> | undefined }} CliDependentsItem */
 
 // const EXIT_CODE_ERROR_RESULT = 1;
 const EXIT_CODE_INVALID_INPUT = 2;
@@ -23,11 +28,13 @@ try {
       debug,
       field: pkgFields,
       'include-pkg': includePkg,
+      'max-age': rawMaxAge,
       'max-pages': rawMaxPages,
       'min-downloads': rawMinDownloads,
       sort,
-      'sort-dependents': sortDependents,
-      'sort-downloads': sortDownloads,
+      'sort-dependent': sortDependents,
+      'sort-download': sortDownloads,
+      update,
     },
     input: [name, ...otherInput],
     showHelp,
@@ -48,9 +55,8 @@ try {
         listGroup: 'Download options',
         type: 'boolean',
       },
-      'min-downloads': {
-        'default': '100',
-        description: 'Min amount of weekly downloads needed to be included',
+      'max-age': {
+        description: 'Max age in days of latest release',
         listGroup: 'Download options',
         type: 'string',
       },
@@ -59,20 +65,31 @@ try {
         listGroup: 'Download options',
         type: 'string',
       },
+      'min-downloads': {
+        'default': '100',
+        description: 'Min amount of weekly downloads needed to be included',
+        listGroup: 'Download options',
+        type: 'string',
+      },
       sort: {
         description: 'Sort by name',
         listGroup: 'Output options',
         type: 'boolean',
       },
-      'sort-dependents': {
+      'sort-dependent': {
         description: 'Sort by dependents',
         listGroup: 'Output options',
         type: 'boolean',
       },
-      'sort-downloads': {
+      'sort-download': {
         description: 'Sort by downloads',
         listGroup: 'Output options',
         type: 'boolean',
+      },
+      update: {
+        description: 'Update the specified file',
+        listGroup: 'Output options',
+        type: 'string',
       },
     },
     pkg,
@@ -85,11 +102,20 @@ try {
   }
 
   const logger = debug ? createLogger({ log: console.error.bind(console) }) : undefined;
+  const maxAge = rawMaxAge ? Number.parseInt(rawMaxAge) : undefined;
   const maxPages = rawMaxPages ? Number.parseInt(rawMaxPages) : undefined;
   const minDownloads = Number.parseInt(rawMinDownloads);
   const skipPkg = !(includePkg || pkgFields?.length);
-  const nonStreaming = sort || sortDependents || sortDownloads;
+  const nonStreaming = sort || sortDependents || sortDownloads || update;
 
+  if (update && (sort || sortDependents || sortDownloads)) {
+    console.error('Can not update and sort at once');
+    process.exit(1);
+  }
+  if (maxAge !== undefined && Number.isNaN(maxAge)) {
+    console.error('Expected --max-age to be numeric');
+    process.exit(1);
+  }
   if (maxPages !== undefined && Number.isNaN(maxPages)) {
     console.error('Expected --max-pages to be numeric');
     process.exit(1);
@@ -99,12 +125,37 @@ try {
     process.exit(1);
   }
 
+  /** @type {Record<string, CliDependentsItem>} */
+  const itemsByName = {};
+
+  if (update) {
+    await pipeline(
+      // eslint-disable-next-line security/detect-non-literal-fs-filename
+      createReadStream(join(process.cwd(), update), 'utf8'),
+      ndjsonParse,
+      async source => {
+        for await (const item of source) {
+          if (!item || typeof item !== 'object') {
+            continue;
+          }
+          if ('name' in item && typeof item.name === 'string') {
+            itemsByName[item.name] = /** @type {CliDependentsItem} */ (item);
+          }
+        }
+      }
+    );
+  }
+
+  const remainingKeys = new Set(Object.keys(itemsByName));
+
   logger?.debug({
+    maxAge,
     maxPages,
     minDownloads,
-    pkgFields,
-    skipPkg,
     name,
+    pkgFields,
+    remainingKeys: remainingKeys.size,
+    skipPkg,
   }, 'Resolved options');
 
   if (!name) {
@@ -114,14 +165,12 @@ try {
 
   const generator = fetchEcosystemDependents(name, {
     logger,
+    maxAge,
     maxPages,
     minDownloadsLastMonth: minDownloads * 4,
     perPage: 100,
     skipPkg,
   });
-
-  /** @type {Array<Omit<import('./index.js').EcosystemDependentsItem, 'pkg'> & { pkg?: Partial<import('./lib/npm-helpers.js').NormalizedPackageJson> | undefined }>} */
-  const result = [];
 
   for await (const item of generator) {
     const output = item.pkg && pkgFields
@@ -129,32 +178,22 @@ try {
       : item;
 
     if (nonStreaming) {
-      result.push(output);
+      itemsByName[item.name] = output;
+      remainingKeys.delete(item.name);
     } else {
       console.log(JSON.stringify(output));
     }
   }
 
-  if (sort) {
-    result.sort((a, b) => a.name > b.name ? 1 : -1);
+  for (const remainingKey of remainingKeys) {
+    delete itemsByName[remainingKey];
   }
 
-  if (sortDependents) {
-    result.sort((a, b) => {
-      const aCount = a?.dependentCount || 0;
-      const bCount = b?.dependentCount || 0;
-      if (aCount < bCount) {
-        return 1;
-      } else if (aCount > bCount) {
-        return -1;
-      }
-      return 0;
-    });
-  }
+  const result = Object.values(itemsByName);
 
-  if (sortDownloads) {
-    result.sort((a, b) => a.downloads < b.downloads ? 1 : (a.downloads > b.downloads ? -1 : 0));
-  }
+  if (sort) { result.sort(sortByKey('name')); }
+  if (sortDependents) { result.sort(sortByKey('dependentCount', true)); }
+  if (sortDownloads) { result.sort(sortByKey('downloads', true)); }
 
   if (nonStreaming) {
     for (const output of result) {

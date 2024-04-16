@@ -46,9 +46,12 @@ fetchEcosystemDependents(name, [options]) => AsyncGenerator<EcosystemDependentsI
 
 #### Options
 
- * `logger` – a `BunyanLite` compatible logger instande
- * `maxPages` – the maximum number of source pages to fetch (there are `36` items per page)
+ * `logger` – a `BunyanLite` compatible logger instance
+ * `maxAge` – the maximum age of latest release to uinclude
+ * `maxPages` – the maximum number of source pages to fetch (there are `perPage` items per page)
  * `minDownloadsLastMonth = 400` – the minimum amount of downloads needed to be returned
+ * `perPage = 36` – how many items per page to lookup
+ * `skipPkg` – when set skips resolving `package.json`
 
 #### Types
 
@@ -58,7 +61,7 @@ import type { NormalizedPackageJson } from 'read-pkg';
 interface DependentsItem {
   downloads: number;
   name: string;
-  pkg: NormalizedPackageJson,
+  pkg?: NormalizedPackageJson | undefined,
 }
 
 interface EcosystemDependentsItem extends DependentsItem {
@@ -88,6 +91,7 @@ fetchNpmDependents(name, [options]) => AsyncGenerator<DependentsItem>
  * `logger` – a `BunyanLite` compatible logger instande
  * `maxPages` – the maximum number of source pages to fetch (there are `36` items per page)
  * `minDownloadsLastWeek = 100` – the minimum amount of downloads needed to be returned
+ * `skipPkg` – when set skips resolving `package.json`
 
 #### Types
 
@@ -97,7 +101,7 @@ import type { NormalizedPackageJson } from 'read-pkg';
 interface DependentsItem = {
   downloads: number;
   name: string;
-  pkg: NormalizedPackageJson,
+  pkg?: NormalizedPackageJson | undefined,
 }
 ```
 

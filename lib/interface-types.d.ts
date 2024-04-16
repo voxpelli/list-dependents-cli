@@ -29,6 +29,7 @@ export interface NpmDependentsOptions extends DependentsOptions {
 }
 
 export interface EcosystemDependentsOptions extends DependentsOptions {
+  maxAge?: number | undefined;
   minDownloadsLastMonth?: number | undefined;
   perPage?: number | undefined;
 }
