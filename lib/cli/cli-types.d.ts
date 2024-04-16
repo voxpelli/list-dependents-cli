@@ -1,0 +1,31 @@
+import type { NormalizedPackageJson } from 'read-pkg';
+import type { EcosystemDependentsItem } from '../interface-types.js';
+
+export type CliDependentsItem = Omit<Partial<EcosystemDependentsItem>, 'pkg' | 'name'> & {
+  name: string,
+  pkg?: Partial<NormalizedPackageJson> | undefined,
+};
+
+export interface DownloadFlags {
+  includePkg: boolean;
+  maxAge: number | undefined;
+  maxPages: number | undefined;
+  minDownloads: number;
+  pkgFields: string[] | undefined;
+}
+
+export interface SortFlags {
+  sort: boolean;
+  sortDependents: boolean;
+  sortDownloads: boolean;
+}
+
+export interface CommandContextBase {
+  debug: boolean;
+  moduleName: string;
+}
+
+export interface CommandContextInit extends CommandContextBase, DownloadFlags, SortFlags {}
+export interface CommandContextUpdate extends CommandContextBase, DownloadFlags {
+  input: string|undefined;
+}

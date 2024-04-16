@@ -22,9 +22,9 @@
     "index.js",
     "index.d.ts",
     "index.d.ts.map",
-    "lib/*.js",
-    "lib/*.d.ts",
-    "lib/*.d.ts.map"
+    "lib/**/*.js",
+    "lib/**/*.d.ts",
+    "lib/**/*.d.ts.map"
   ],
   "scripts": {
     "build:0": "run-s clean",
@@ -71,8 +71,12 @@
   "dependencies": {
     "buffered-async-iterable": "^0.3.0",
     "bunyan-adaptor": "^6.0.1",
+    "chalk": "^5.3.0",
     "hast-util-from-html": "^2.0.1",
     "hast-util-select": "^6.0.2",
-    "peowly": "^1.2.0"
+    "ora": "^8.0.1",
+    "peowly": "^1.2.0",
+    "peowly-commands": "^1.0.0",
+    "pony-cause": "^2.1.11"
   }
 }
