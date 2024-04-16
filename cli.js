@@ -7,7 +7,7 @@ import { readFile } from 'node:fs/promises';
 import createLogger from 'bunyan-adaptor';
 import { peowly } from 'peowly';
 
-import { fetchEcosystemDependents, fetchNpmDependents } from './index.js';
+import { fetchEcosystemDependents } from './index.js';
 import { isErrorWithCode, pick } from './lib/utils.js';
 
 // const EXIT_CODE_ERROR_RESULT = 1;
@@ -25,7 +25,9 @@ try {
       'include-pkg': includePkg,
       'max-pages': rawMaxPages,
       'min-downloads': rawMinDownloads,
-      npm: useNpm,
+      sort,
+      'sort-dependents': sortDependents,
+      'sort-downloads': sortDownloads,
     },
     input: [name, ...otherInput],
     showHelp,
@@ -46,11 +48,6 @@ try {
         listGroup: 'Download options',
         type: 'boolean',
       },
-      npm: {
-        description: 'Use npm crawling (instead of ecosyste.ms) to find dependents',
-        listGroup: 'Download options',
-        type: 'boolean',
-      },
       'min-downloads': {
         'default': '100',
         description: 'Min amount of weekly downloads needed to be included',
@@ -61,6 +58,21 @@ try {
         description: 'Max amount of pages to iterate through',
         listGroup: 'Download options',
         type: 'string',
+      },
+      sort: {
+        description: 'Sort by name',
+        listGroup: 'Output options',
+        type: 'boolean',
+      },
+      'sort-dependents': {
+        description: 'Sort by dependents',
+        listGroup: 'Output options',
+        type: 'boolean',
+      },
+      'sort-downloads': {
+        description: 'Sort by downloads',
+        listGroup: 'Output options',
+        type: 'boolean',
       },
     },
     pkg,
@@ -76,6 +88,7 @@ try {
   const maxPages = rawMaxPages ? Number.parseInt(rawMaxPages) : undefined;
   const minDownloads = Number.parseInt(rawMinDownloads);
   const skipPkg = !(includePkg || pkgFields?.length);
+  const nonStreaming = sort || sortDependents || sortDownloads;
 
   if (maxPages !== undefined && Number.isNaN(maxPages)) {
     console.error('Expected --max-pages to be numeric');
@@ -86,16 +99,11 @@ try {
     process.exit(1);
   }
 
-  const options = /** @satisfies {import('./index.js').DependentsOptions} */ ({
-    logger,
-    maxPages,
-    skipPkg,
-  });
-
   logger?.debug({
-    ...pick(options, ['maxPages', 'skipPkg']),
-    pkgFields,
+    maxPages,
     minDownloads,
+    pkgFields,
+    skipPkg,
     name,
   }, 'Resolved options');
 
@@ -104,16 +112,54 @@ try {
     process.exit();
   }
 
-  const result = useNpm
-    ? fetchNpmDependents(name, { ...options, minDownloadsLastWeek: minDownloads })
-    : fetchEcosystemDependents(name, { ...options, minDownloadsLastMonth: minDownloads * 4 });
+  const generator = fetchEcosystemDependents(name, {
+    logger,
+    maxPages,
+    minDownloadsLastMonth: minDownloads * 4,
+    perPage: 100,
+    skipPkg,
+  });
 
-  for await (const item of result) {
+  /** @type {Array<Omit<import('./index.js').EcosystemDependentsItem, 'pkg'> & { pkg?: Partial<import('./lib/npm-helpers.js').NormalizedPackageJson> | undefined }>} */
+  const result = [];
+
+  for await (const item of generator) {
     const output = item.pkg && pkgFields
       ? { ...item, pkg: pick(item.pkg, pkgFields) }
       : item;
 
-    console.log(JSON.stringify(output));
+    if (nonStreaming) {
+      result.push(output);
+    } else {
+      console.log(JSON.stringify(output));
+    }
+  }
+
+  if (sort) {
+    result.sort((a, b) => a.name > b.name ? 1 : -1);
+  }
+
+  if (sortDependents) {
+    result.sort((a, b) => {
+      const aCount = a?.dependentCount || 0;
+      const bCount = b?.dependentCount || 0;
+      if (aCount < bCount) {
+        return 1;
+      } else if (aCount > bCount) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+
+  if (sortDownloads) {
+    result.sort((a, b) => a.downloads < b.downloads ? 1 : (a.downloads > b.downloads ? -1 : 0));
+  }
+
+  if (nonStreaming) {
+    for (const output of result) {
+      console.log(JSON.stringify(output));
+    }
   }
 } catch (err) {
   if (isErrorWithCode(err) && err.code === 'ERR_PARSE_ARGS_UNKNOWN_OPTION') {

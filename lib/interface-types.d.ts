@@ -30,4 +30,5 @@ export interface NpmDependentsOptions extends DependentsOptions {
 
 export interface EcosystemDependentsOptions extends DependentsOptions {
   minDownloadsLastMonth?: number | undefined;
+  perPage?: number | undefined;
 }
