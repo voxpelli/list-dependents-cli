@@ -28,5 +28,6 @@ export interface CommandContextBase {
 
 export interface CommandContextInit extends CommandContextBase, DownloadFlags, SortFlags {}
 export interface CommandContextUpdate extends CommandContextBase, DownloadFlags {
+  check: boolean | undefined;
   input: string | undefined;
 }
