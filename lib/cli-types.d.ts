@@ -1,5 +1,5 @@
 import type { NormalizedPackageJson } from 'read-pkg';
-import type { EcosystemDependentsItem } from '../interface-types.js';
+import type { EcosystemDependentsItem } from 'list-dependents';
 
 export type CliDependentsItem = Omit<Partial<EcosystemDependentsItem>, 'pkg' | 'name'> & {
   name: string,
