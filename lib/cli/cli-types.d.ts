@@ -23,9 +23,10 @@ export interface SortFlags {
 export interface CommandContextBase {
   debug: boolean;
   moduleName: string;
+  output: string | undefined;
 }
 
 export interface CommandContextInit extends CommandContextBase, DownloadFlags, SortFlags {}
 export interface CommandContextUpdate extends CommandContextBase, DownloadFlags {
-  input: string|undefined;
+  input: string | undefined;
 }
