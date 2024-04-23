@@ -1,8 +1,8 @@
-# list-dependents CLI
+# list-dependents-cli
 
 Lists all dependents of a project, using npm and [`ecosyste.ms`](https://ecosyste.ms/).
 
-CLI-companion to [`list-dependents`](https://github.com/voxpelli/list-dependents).
+CLI-companion to [`list-dependents`](https://github.com/voxpelli/list-dependents), use it directly if you want to use it programmatically.
 
 [![npm version](https://img.shields.io/npm/v/list-dependents-cli.svg?style=flat)](https://www.npmjs.com/package/list-dependents-cli)
 [![npm downloads](https://img.shields.io/npm/dm/list-dependents-cli.svg?style=flat)](https://www.npmjs.com/package/list-dependents-cli)
@@ -11,15 +11,41 @@ CLI-companion to [`list-dependents`](https://github.com/voxpelli/list-dependents
 [![Types in JS](https://img.shields.io/badge/types_in_js-yes-brightgreen)](https://github.com/voxpelli/types-in-js)
 [![Follow @voxpelli@mastodon.social](https://img.shields.io/mastodon/follow/109247025527949675?domain=https%3A%2F%2Fmastodon.social&style=social)](https://mastodon.social/@voxpelli)
 
+## Install
+
+### Globally
+
+```sh
+npm install -g list-dependents-cli
+```
+
+### Locally
+
+```sh
+npm install -D list-dependents-cli
+```
+
 ## Usage
 
-```sh
-list-dependents init -o dependents.ndjson installed-check
-```
+### Initial lookup
 
 ```sh
-list-dependents update -i dependents.ndjson -o dependents.ndjson installed-check
+list-dependents init installed-check > dependents.ndjson
 ```
+
+### Update existing lookup
+
+```sh
+list-dependents update installed-check dependents.ndjson
+```
+
+### Check if existing lookup is outdated
+
+```sh
+list-dependents update installed-check dependents.ndjson --check
+```
+
+### See full documentation
 
 ```sh
 list-dependents --help
@@ -27,7 +53,7 @@ list-dependents --help
 
 ## Similar modules
 
-* [`list-dependents`](https://github.com/voxpelli/list-dependents) – the module providing the core functionality of this module
+* [`list-dependents`](https://github.com/voxpelli/list-dependents) – module providing the core functionality of this module
 
 <!-- ## See also
 
