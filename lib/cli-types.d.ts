@@ -14,20 +14,26 @@ export interface DownloadFlags {
   pkgFields: string[] | undefined;
 }
 
-export interface SortFlags {
+interface InputFlags {
+  input: string | undefined;
+}
+
+interface SortFlags {
   sort: boolean;
   sortDependents: boolean;
   sortDownloads: boolean;
 }
 
-export interface CommandContextBase {
+interface CommandContextBase {
   debug: boolean;
-  moduleName: string;
   output: string | undefined;
 }
 
-export interface CommandContextInit extends CommandContextBase, DownloadFlags, SortFlags {}
-export interface CommandContextUpdate extends CommandContextBase, DownloadFlags {
+interface CommandContextNamed extends CommandContextBase {
+  moduleName: string;
+}
+
+export interface CommandContextInit extends CommandContextNamed, DownloadFlags, SortFlags {}
+export interface CommandContextUpdate extends CommandContextNamed, DownloadFlags, InputFlags {
   check: boolean | undefined;
-  input: string | undefined;
 }
