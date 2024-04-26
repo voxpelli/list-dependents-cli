@@ -1,3 +1,5 @@
+import { ReadStream } from 'node:fs';
+
 import type { NormalizedPackageJson } from 'read-pkg';
 import type { EcosystemDependentsItem } from 'list-dependents';
 
@@ -6,28 +8,41 @@ export type CliDependentsItem = Omit<Partial<EcosystemDependentsItem>, 'pkg' | '
   pkg?: Partial<NormalizedPackageJson> | undefined,
 };
 
+export type CliDependentsCollection = Record<string, CliDependentsItem>;
+
 export interface DownloadFlags {
   includePkg: boolean;
-  maxAge: number | undefined;
   maxPages: number | undefined;
-  minDownloads: number;
   pkgFields: string[] | undefined;
 }
 
-export interface SortFlags {
+export interface FilterFlags {
+  maxAge: number | undefined;
+  minDownloads: number;
+}
+
+interface InputContext {
+  input: ReadStream | (NodeJS.ReadStream & { fd: 0; }) | undefined;
+  modifyInPlace: boolean;
+}
+
+interface SortFlags {
   sort: boolean;
   sortDependents: boolean;
   sortDownloads: boolean;
 }
 
-export interface CommandContextBase {
+interface CommandContextBase {
   debug: boolean;
-  moduleName: string;
   output: string | undefined;
 }
 
-export interface CommandContextInit extends CommandContextBase, DownloadFlags, SortFlags {}
-export interface CommandContextUpdate extends CommandContextBase, DownloadFlags {
+interface CommandContextNamed extends CommandContextBase {
+  moduleName: string;
+}
+
+export interface CommandContextFilter extends CommandContextBase, InputContext, FilterFlags, SortFlags {}
+export interface CommandContextInit extends CommandContextNamed, DownloadFlags, FilterFlags, SortFlags {}
+export interface CommandContextUpdate extends CommandContextNamed, DownloadFlags, FilterFlags, InputContext {
   check: boolean | undefined;
-  input: string | undefined;
 }
