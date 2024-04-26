@@ -42,7 +42,7 @@ interface CommandContextNamed extends CommandContextBase {
 }
 
 export interface CommandContextFilter extends CommandContextBase, InputContext, FilterFlags, SortFlags {
-  maxCount: number;
+  maxCount: number | undefined;
 }
 export interface CommandContextInit extends CommandContextNamed, DownloadFlags, FilterFlags, SortFlags {}
 export interface CommandContextUpdate extends CommandContextNamed, DownloadFlags, FilterFlags, InputContext {
