@@ -56,7 +56,7 @@
   "dependencies": {
     "bunyan-adaptor": "^6.0.1",
     "chalk": "^5.3.0",
-    "list-dependents": "^1.0.1",
+    "list-dependents": "^1.2.1",
     "ora": "^8.0.1",
     "peowly": "^1.2.0",
     "peowly-commands": "^1.0.0",
