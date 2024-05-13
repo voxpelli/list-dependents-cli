@@ -47,6 +47,7 @@ export interface CommandContextFilter extends CommandContextBase, InputContext, 
 export interface CommandContextInit extends CommandContextNamed, DownloadFlags, FilterFlags, SortFlags {}
 export interface CommandContextRefresh extends CommandContextBase, DownloadFlags, InputContext {
   check: boolean | undefined;
+  moduleName: string | undefined;
 }
 export interface CommandContextUpdate extends CommandContextNamed, DownloadFlags, FilterFlags, InputContext {
   check: boolean | undefined;
