@@ -27,29 +27,18 @@ npm install -D list-dependents-cli
 
 ## Usage
 
-### Initial lookup
-
 ```sh
+list-dependents --help
+list-dependents init --help
 list-dependents init installed-check > dependents.ndjson
 ```
 
-### Update existing lookup
+## Commands
 
-```sh
-list-dependents update installed-check dependents.ndjson
-```
-
-### Check if existing lookup is outdated
-
-```sh
-list-dependents update installed-check dependents.ndjson --check
-```
-
-### See full documentation
-
-```sh
-list-dependents --help
-```
+* `list-dependents filter` – narrows down an existing list of modules
+* `list-dependents init` – creates a new list of dependent modules
+* `list-dependents refresh` – refreshes the data within a list of modules
+* `list-dependents update` – updates an existing list of dependent modules
 
 ## Similar modules
 
