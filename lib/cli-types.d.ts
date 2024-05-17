@@ -22,6 +22,7 @@ export interface FilterFlags {
 }
 
 interface InputContext {
+  explicitInput: boolean;
   input: ReadStream | (NodeJS.ReadStream & { fd: 0; }) | undefined;
   modifyInPlace: boolean;
 }
@@ -51,6 +52,6 @@ export interface CommandContextRefresh extends CommandContextBase, DownloadFlags
   check: boolean | undefined;
   moduleName: string | undefined;
 }
-export interface CommandContextUpdate extends CommandContextNamed, DownloadFlags, FilterFlags, InputContext {
+export interface CommandContextLookup extends CommandContextNamed, DownloadFlags, FilterFlags, InputContext {
   check: boolean | undefined;
 }
