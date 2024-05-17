@@ -36,6 +36,7 @@ interface SortFlags {
 interface CommandContextBase {
   debug: boolean;
   output: string | undefined;
+  quiet: boolean;
 }
 
 interface CommandContextNamed extends CommandContextBase {
