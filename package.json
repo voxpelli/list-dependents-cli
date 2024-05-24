@@ -1,6 +1,6 @@
 {
   "name": "list-dependents-cli",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Lists all dependents of a project, using npm or ecosyste.ms",
   "homepage": "http://github.com/voxpelli/list-dependents-cli",
   "repository": {
