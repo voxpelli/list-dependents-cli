@@ -44,6 +44,8 @@ interface CommandContextNamed extends CommandContextBase {
 }
 
 export interface CommandContextFilter extends CommandContextBase, InputContext, FilterFlags, SortFlags {
+  exclude: string[] | undefined;
+  include: string[] | undefined;
   maxCount: number | undefined;
   repositoryPrefix: string | undefined;
   targetVersion: string | undefined;
