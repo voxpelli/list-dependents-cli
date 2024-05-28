@@ -47,7 +47,7 @@ export interface CommandContextFilter extends CommandContextBase, InputContext, 
   exclude: string[] | undefined;
   include: string[] | undefined;
   maxCount: number | undefined;
-  repositoryPrefix: string | undefined;
+  repositoryPrefix: string[] | undefined;
   targetVersion: string | undefined;
 }
 export interface CommandContextInit extends CommandContextNamed, DownloadFlags, FilterFlags, SortFlags {}
