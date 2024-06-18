@@ -1,7 +1,8 @@
-import { ReadStream } from 'node:fs';
+import type { ReadStream } from 'node:fs';
+import type { ReadStream as ReadStreamTTY } from 'node:tty';
 
-import type { NormalizedPackageJson } from 'read-pkg';
 import type { EcosystemDependentsItem } from 'list-dependents';
+import type { NormalizedPackageJson } from 'read-pkg';
 
 export type CliDependentsItem = Omit<Partial<EcosystemDependentsItem>, 'pkg' | 'name'> & {
   name: string,
@@ -23,7 +24,7 @@ export interface FilterFlags {
 
 interface InputContext {
   explicitInput: boolean;
-  input: ReadStream | (NodeJS.ReadStream & { fd: 0; }) | undefined;
+  input: ReadStream | ReadStreamTTY | undefined;
   modifyInPlace: boolean;
 }
 
