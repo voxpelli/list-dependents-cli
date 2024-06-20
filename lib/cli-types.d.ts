@@ -58,4 +58,5 @@ export interface CommandContextRefresh extends CommandContextBase, DownloadFlags
 }
 export interface CommandContextLookup extends CommandContextNamed, DownloadFlags, FilterFlags, InputContext {
   check: boolean | undefined;
+  includeHistoric: boolean | undefined;
 }
