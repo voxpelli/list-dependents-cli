@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.4.1](https://github.com/voxpelli/list-dependents-cli/compare/v2.4.0...v2.4.1) (2024-07-17)
+
+
+### 🧹 Chores
+
+* **deps:** update linting dependencies ([#17](https://github.com/voxpelli/list-dependents-cli/issues/17)) ([432404a](https://github.com/voxpelli/list-dependents-cli/commit/432404aac69f7f656d531284acd7d212dbe0e6a4))
+* **deps:** update type dependencies ([#20](https://github.com/voxpelli/list-dependents-cli/issues/20)) ([c571066](https://github.com/voxpelli/list-dependents-cli/commit/c571066f294646a5bafea7a5f09742b80558027f))
+* only define `DownloadFlags` once ([e58c6f6](https://github.com/voxpelli/list-dependents-cli/commit/e58c6f6510e40d5987edd40af3439303779c3383))
+
 ## [2.4.0](https://github.com/voxpelli/list-dependents-cli/compare/v2.3.1...v2.4.0) (2024-06-20)
 
 
