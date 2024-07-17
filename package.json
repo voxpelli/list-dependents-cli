@@ -44,7 +44,7 @@
     "read-pkg": "^9.0.1",
     "type-coverage": "^2.29.1",
     "typescript": "~5.5.3",
-    "validate-conventional-commit": "^1.0.3"
+    "validate-conventional-commit": "^1.0.4"
   },
   "dependencies": {
     "buffered-async-iterable": "^1.0.0",
