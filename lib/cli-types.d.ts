@@ -12,6 +12,7 @@ export type CliDependentsItem = Omit<Partial<EcosystemDependentsItem>, 'pkg' | '
 export type CliDependentsCollection = Record<string, CliDependentsItem>;
 
 export interface DownloadFlags {
+  downloadPrecision: number | undefined;
   includePkg: boolean;
   maxPages: number | undefined;
   pkgFields: string[] | undefined;
