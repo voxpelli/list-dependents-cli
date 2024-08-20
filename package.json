@@ -32,7 +32,7 @@
     "test": "run-s check"
   },
   "devDependencies": {
-    "@types/node": "^20.14.11",
+    "@types/node": "^20.14.13",
     "@types/semver": "^7.5.8",
     "@voxpelli/eslint-config": "^20.0.0",
     "@voxpelli/tsconfig": "^13.0.0",
@@ -43,7 +43,7 @@
     "npm-run-all2": "^6.2.0",
     "read-pkg": "^9.0.1",
     "type-coverage": "^2.29.1",
-    "typescript": "~5.5.3",
+    "typescript": "~5.5.4",
     "validate-conventional-commit": "^1.0.3"
   },
   "dependencies": {
