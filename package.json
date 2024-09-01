@@ -37,7 +37,7 @@
     "@voxpelli/eslint-config": "^21.0.0",
     "@voxpelli/tsconfig": "^13.0.0",
     "eslint": "^9.9.0",
-    "husky": "^9.1.4",
+    "husky": "^9.1.5",
     "installed-check": "^9.3.0",
     "knip": "^5.27.2",
     "npm-run-all2": "^6.2.2",
