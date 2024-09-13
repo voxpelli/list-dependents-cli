@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.2](https://github.com/voxpelli/list-dependents-cli/compare/v2.5.1...v2.5.2) (2024-09-13)
+
+
+### 🩹 Fixes
+
+* **deps:** use latest `list-dependents` ([9d3e7b1](https://github.com/voxpelli/list-dependents-cli/commit/9d3e7b11ef20ab2468e5f70b3fa99130614e5b6d))
+
 ## [2.5.1](https://github.com/voxpelli/list-dependents-cli/compare/v2.5.0...v2.5.1) (2024-09-13)
 
 
