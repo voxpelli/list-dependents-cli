@@ -23,9 +23,21 @@ export interface FilterFlags {
   minDownloads: number;
 }
 
+export interface FormatFlags {
+  markdown: boolean;
+  skipLinks: boolean;
+}
+
 interface InputContext {
   explicitInput: boolean;
   input: ReadStream | ReadStreamTTY | undefined;
+}
+
+interface OutputContext {
+  output: string | undefined;
+}
+
+interface FileContext extends InputContext, OutputContext {
   modifyInPlace: boolean;
 }
 
@@ -35,9 +47,14 @@ interface SortFlags {
   sortDownloads: boolean;
 }
 
+interface FormatContext {
+  markdown: boolean;
+  pkgFields: string[] | undefined;
+  skipLinks: boolean;
+}
+
 interface CommandContextBase {
   debug: boolean;
-  output: string | undefined;
   quiet: boolean;
 }
 
@@ -45,19 +62,21 @@ interface CommandContextNamed extends CommandContextBase {
   moduleName: string;
 }
 
-export interface CommandContextFilter extends CommandContextBase, InputContext, FilterFlags, SortFlags {
+export interface CommandContextFilter extends CommandContextBase, FileContext, FilterFlags, FormatContext, SortFlags {
   exclude: string[] | undefined;
   include: string[] | undefined;
   maxCount: number | undefined;
+  prettyPrint: boolean;
   repositoryPrefix: string[] | undefined;
   targetVersion: string | undefined;
 }
-export interface CommandContextInit extends CommandContextNamed, DownloadFlags, FilterFlags, SortFlags {}
-export interface CommandContextRefresh extends CommandContextBase, DownloadFlags, InputContext {
+export interface CommandContextFormat extends CommandContextBase, InputContext, FormatContext {}
+export interface CommandContextInit extends CommandContextNamed, OutputContext, DownloadFlags, FilterFlags, SortFlags {}
+export interface CommandContextRefresh extends CommandContextBase, DownloadFlags, FileContext {
   check: boolean | undefined;
   moduleName: string | undefined;
 }
-export interface CommandContextLookup extends CommandContextNamed, DownloadFlags, FilterFlags, InputContext {
+export interface CommandContextLookup extends CommandContextNamed, DownloadFlags, FilterFlags, FileContext {
   check: boolean | undefined;
   includeHistoric: boolean | undefined;
 }

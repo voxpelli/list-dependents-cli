@@ -36,6 +36,7 @@ list-dependents list installed-check > dependents.ndjson
 ## Commands
 
 * `list-dependents filter` – narrows down an existing list of modules
+* `list-dependents format` – pretty prints a list to the terminal or as markdown
 * `list-dependents list` – creates or updates list of dependent modules
 * `list-dependents refresh` – refreshes the data within a list of modules
 
