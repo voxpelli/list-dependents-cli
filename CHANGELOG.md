@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.6.0](https://github.com/voxpelli/list-dependents-cli/compare/v2.5.2...v2.6.0) (2024-09-17)
+
+
+### 🌟 Features
+
+* add `format` command and formatting options ([#38](https://github.com/voxpelli/list-dependents-cli/issues/38)) ([5e43eb5](https://github.com/voxpelli/list-dependents-cli/commit/5e43eb5b10feb5d62552f960111fe9116ea03fb2))
+
+
+### 🧹 Chores
+
+* **deps:** update dev dependencies ([98bc77e](https://github.com/voxpelli/list-dependents-cli/commit/98bc77ee776a6f90c4e88b9ca061a29eb83a2b15))
+
 ## [2.5.2](https://github.com/voxpelli/list-dependents-cli/compare/v2.5.1...v2.5.2) (2024-09-13)
 
 
