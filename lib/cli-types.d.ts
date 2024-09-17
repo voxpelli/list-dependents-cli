@@ -62,10 +62,11 @@ interface CommandContextNamed extends CommandContextBase {
   moduleName: string;
 }
 
-export interface CommandContextFilter extends CommandContextBase, FileContext, FilterFlags, SortFlags {
+export interface CommandContextFilter extends CommandContextBase, FileContext, FilterFlags, FormatContext, SortFlags {
   exclude: string[] | undefined;
   include: string[] | undefined;
   maxCount: number | undefined;
+  prettyPrint: boolean;
   repositoryPrefix: string[] | undefined;
   targetVersion: string | undefined;
 }
