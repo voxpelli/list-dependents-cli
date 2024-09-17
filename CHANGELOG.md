@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.1](https://github.com/voxpelli/list-dependents-cli/compare/v2.6.0...v2.6.1) (2024-09-17)
+
+
+### 🩹 Fixes
+
+* add a `Generated using` line ([96c8f29](https://github.com/voxpelli/list-dependents-cli/commit/96c8f298b76d9a3e399fc09681cc2735fc5969ff))
+
 ## [2.6.0](https://github.com/voxpelli/list-dependents-cli/compare/v2.5.2...v2.6.0) (2024-09-17)
 
 
