@@ -34,7 +34,7 @@
   "devDependencies": {
     "@types/node": "^20.16.5",
     "@types/semver": "^7.5.8",
-    "@voxpelli/eslint-config": "^21.0.0",
+    "@voxpelli/eslint-config": "^22.1.0",
     "@voxpelli/tsconfig": "^15.0.0",
     "eslint": "^9.10.0",
     "husky": "^9.1.6",
