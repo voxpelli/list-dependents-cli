@@ -68,6 +68,7 @@ export interface CommandContextFilter extends CommandContextBase, FileContext, F
   maxCount: number | undefined;
   prettyPrint: boolean;
   repositoryPrefix: string[] | undefined;
+  skipAdditions: boolean;
   targetVersion: string | undefined;
 }
 export interface CommandContextFormat extends CommandContextBase, InputContext, FormatContext {}
