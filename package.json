@@ -22,7 +22,7 @@
     "lib/**/*.js"
   ],
   "scripts": {
-    "check:installed-check": "installed-check -i type-coverage -i @voxpelli/eslint-config -i eslint -i @voxpelli/semver-set",
+    "check:installed-check": "installed-check -i type-coverage -i @voxpelli/eslint-config -i eslint -i @voxpelli/semver-set -i npm-run-all2",
     "check:knip": "knip",
     "check:lint": "eslint --report-unused-disable-directives .",
     "check:tsc": "tsc",
@@ -40,7 +40,7 @@
     "husky": "^9.1.6",
     "installed-check": "^9.3.0",
     "knip": "^5.30.2",
-    "npm-run-all2": "^6.2.3",
+    "npm-run-all2": "^7.0.1",
     "read-pkg": "^9.0.1",
     "type-coverage": "^2.29.1",
     "typescript": "~5.6.2",
