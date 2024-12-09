@@ -6,14 +6,11 @@ on:
       - main
 
 permissions:
-  contents: write
   id-token: write
-  packages: write
-  pull-requests: write
 
 jobs:
   release-please:
-    uses: voxpelli/ghatemplates/.github/workflows/release-please-4.yml@main
+    uses: voxpelli/ghatemplates/.github/workflows/release-please-bot.yml@main
     secrets: inherit
     with:
       app-id: '1082006'
