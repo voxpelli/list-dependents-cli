@@ -15,3 +15,5 @@ jobs:
   release-please:
     uses: voxpelli/ghatemplates/.github/workflows/release-please-4.yml@main
     secrets: inherit
+    with:
+      app-id: '1082006'
