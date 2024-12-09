@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.7.0](https://github.com/voxpelli/list-dependents-cli/compare/v2.6.1...v2.7.0) (2024-12-09)
+
+
+### 🌟 Features
+
+* `--no-additions` flag on `filter` command ([#45](https://github.com/voxpelli/list-dependents-cli/issues/45)) ([56b0363](https://github.com/voxpelli/list-dependents-cli/commit/56b036331adb231ea1d51be3969663446410f8e7))
+
+
+### 🧹 Chores
+
+* **deps:** update `npm-run-all2` ([12149dd](https://github.com/voxpelli/list-dependents-cli/commit/12149dd2678461f9882a884b0c452f8dfb90f96d))
+* **deps:** update dependency @voxpelli/eslint-config to v22 ([#42](https://github.com/voxpelli/list-dependents-cli/issues/42)) ([47d780a](https://github.com/voxpelli/list-dependents-cli/commit/47d780a275e0e8f831c96e7d96f824eac9c0fa49))
+* **deps:** update linting dependencies ([#40](https://github.com/voxpelli/list-dependents-cli/issues/40)) ([4e5952e](https://github.com/voxpelli/list-dependents-cli/commit/4e5952ef51c0a3fcf48019c00d472fd7042d663a))
+* **deps:** update type dependencies ([#32](https://github.com/voxpelli/list-dependents-cli/issues/32)) ([53da05d](https://github.com/voxpelli/list-dependents-cli/commit/53da05d5665f2d60d87af38dea41615ca359696d))
+
 ## [2.6.1](https://github.com/voxpelli/list-dependents-cli/compare/v2.6.0...v2.6.1) (2024-09-17)
 
 
