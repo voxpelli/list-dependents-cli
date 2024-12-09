@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.7.1](https://github.com/voxpelli/list-dependents-cli/compare/v2.7.0...v2.7.1) (2024-12-09)
+
+
+### 🩹 Fixes
+
+* release-please flow ([19946fa](https://github.com/voxpelli/list-dependents-cli/commit/19946fa37a5dd292161a0120ade87197d96eab2e))
+* release-please flow ([3fc41be](https://github.com/voxpelli/list-dependents-cli/commit/3fc41becc9d4f0564a9e913e76b26f226f6c6571))
+* the publishing flow was broken ([5f3e6e6](https://github.com/voxpelli/list-dependents-cli/commit/5f3e6e67322990d7120f6c510dcfbfb50d1e42f2))
+
 ## [2.7.0](https://github.com/voxpelli/list-dependents-cli/compare/v2.6.1...v2.7.0) (2024-12-09)
 
 
