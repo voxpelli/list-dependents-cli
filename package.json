@@ -47,7 +47,7 @@
     "validate-conventional-commit": "^1.0.4"
   },
   "dependencies": {
-    "@voxpelli/semver-set": "^6.0.0",
+    "@voxpelli/semver-set": "^7.0.0",
     "@voxpelli/typed-utils": "^1.10.2",
     "buffered-async-iterable": "^1.0.0",
     "bunyan-adaptor": "^6.0.1",
