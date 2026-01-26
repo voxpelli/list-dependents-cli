@@ -9,21 +9,39 @@ The resume functionality is implemented entirely at the CLI level in `list-depen
 3. **Resume Instructions**: User is shown how to resume: `list-dependents list -i <partial-file> -o <output> <module-name>`
 4. **Deduplication**: When resuming, existing items are read and compared; unchanged items are skipped
 
+### Supported Scenarios
+
+✅ **File Output**: Resume is supported when using:
+- `-o <filename>` (explicit output file)
+- `-n <module-name>` (named file: `<module-name>.ndjson`)
+- `<module-name> <filename>` (positional output file)
+
+❌ **Stdout Output**: Resume is NOT supported when:
+- Outputting to stdout (no `-o` or `-n` flag)
+- Using pipes: `list-dependents list mocha | ...`
+
+❌ **Check Mode**: Resume is NOT supported in:
+- `--check` mode (read-only verification, no writes)
+
+This is intentional as these scenarios don't involve persistent file output where partial data can be saved.
+
 ### How It Works
 
 ```bash
-# Initial run (fails midway)
+# Initial run (fails midway with 500 error)
 $ list-dependents list -o mocha.ndjson mocha
 # ... fetches 100 packages, then 500 error occurs
 # Partial data saved to: mocha.ndjson.partial
+# To resume, run: list-dependents list -i mocha.ndjson.partial -o mocha.ndjson mocha
 
 # Resume from where it left off
 $ list-dependents list -i mocha.ndjson.partial -o mocha.ndjson mocha
-# Reads 100 already-fetched packages
-# Continues fetching from API
+# Reads 100 already-fetched packages into memory
+# Continues fetching from API (starts from page 1)
 # Skips packages already in memory (marked as "unchanged")
-# Fetches new packages
+# Fetches new packages (marked as "added")
 # Removes packages that are no longer dependents
+# Writes final complete list to mocha.ndjson
 ```
 
 ## Potential Improvements in `list-dependents` Library
