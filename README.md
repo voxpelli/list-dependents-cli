@@ -40,6 +40,25 @@ list-dependents list installed-check > dependents.ndjson
 * `list-dependents list` – creates or updates list of dependent modules
 * `list-dependents refresh` – refreshes the data within a list of modules
 
+### Error Recovery
+
+When fetching large lists of dependents, errors (such as HTTP 500 errors from the API) can occur. The `list` command automatically saves progress to protect against data loss:
+
+```sh
+# If an error occurs during fetching:
+$ list-dependents list -o mocha.ndjson mocha
+# ... fetches data for several minutes
+# HTTP 500 error occurs
+# Partial data saved to: mocha.ndjson.partial
+# To resume, run: list-dependents list -i mocha.ndjson.partial -o mocha.ndjson mocha
+
+# Resume from where you left off:
+$ list-dependents list -i mocha.ndjson.partial -o mocha.ndjson mocha
+# Continues from partial data and completes the fetch
+```
+
+This feature works when outputting to a file (`-o` or `-n` flags) but not when outputting to stdout.
+
 ## Similar modules
 
 * [`list-dependents`](https://github.com/voxpelli/list-dependents) – module providing the core functionality of this module
