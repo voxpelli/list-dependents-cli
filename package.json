@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@voxpelli/semver-set": "^6.0.0",
-    "@voxpelli/typed-utils": "^1.10.2",
+    "@voxpelli/typed-utils": "^3.0.0",
     "buffered-async-iterable": "^1.0.0",
     "bunyan-adaptor": "^6.0.1",
     "chalk": "^5.3.0",
