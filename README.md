@@ -33,6 +33,10 @@ list-dependents list --help
 list-dependents list installed-check > dependents.ndjson
 ```
 
+When `list`, `refresh`, or `filter -o` writes NDJSON to a file, it also writes or refreshes a sibling `ATTRIBUTION.md` file crediting [`ecosyste.ms`](https://ecosyste.ms/) by default. Pass `--no-source-file` to skip that sidecar.
+
+If you publish data written from stdout instead (for example `list-dependents filter … | jq … > dependents.json`), add equivalent source attribution yourself alongside the generated artifact.
+
 ## Commands
 
 * `list-dependents filter` – narrows down an existing list of modules

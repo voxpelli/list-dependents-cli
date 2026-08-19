@@ -35,6 +35,7 @@ interface InputContext {
 
 interface OutputContext {
   output: string | undefined;
+  sourceFile: boolean;
 }
 
 interface FileContext extends InputContext, OutputContext {
