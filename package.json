@@ -29,7 +29,8 @@
     "check:type-coverage": "type-coverage --detail --strict --at-least 99 --ignore-files 'test/*'",
     "check": "run-p check:*",
     "prepare": "husky",
-    "test": "run-s check"
+    "test": "run-s test:unit check",
+    "test:unit": "node --test"
   },
   "devDependencies": {
     "@types/node": "^20.17.9",
