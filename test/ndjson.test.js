@@ -1,6 +1,7 @@
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { cwd } from 'node:process';
 import * as nodeTest from 'node:test';
 import assert from 'node:assert/strict';
 
@@ -83,5 +84,25 @@ nodeTest.test('writes attribution next to the final output when using a temporar
   } finally {
     await rm(tmpDir, { force: true, recursive: true });
     await rm(tmpOutputDir, { force: true, recursive: true });
+  }
+});
+
+nodeTest.test('writes attribution next to relative output resolved from cwd', async () => {
+  const originalCwd = cwd();
+  const tmpDir = await mkdtemp(path.join(os.tmpdir(), 'list-dependents-cli-'));
+  const outputFile = 'dependents.ndjson';
+
+  try {
+    process.chdir(tmpDir);
+
+    await ndjsonOutputWithAttribution([{ name: 'example' }], outputFile);
+
+    assert.match(
+      await readTextFile(path.join(tmpDir, 'ATTRIBUTION.md')),
+      /Data attribution/
+    );
+  } finally {
+    process.chdir(originalCwd);
+    await rm(tmpDir, { force: true, recursive: true });
   }
 });
