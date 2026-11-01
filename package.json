@@ -51,7 +51,7 @@
     "@voxpelli/typed-utils": "^1.10.2",
     "buffered-async-iterable": "^1.0.0",
     "bunyan-adaptor": "^6.0.1",
-    "chalk": "^5.3.0",
+    "chalk": "^6.0.0",
     "list-dependents": "^2.2.2",
     "markdown-or-chalk": "^0.2.3",
     "ora": "^8.0.1",
